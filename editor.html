@@ -1,0 +1,286 @@
+import React from "react";
+import "./NuclearEditor.css";
+
+const categories = [
+    "Motion",
+    "Looks",
+    "Sound",
+    "Events",
+    "Control",
+    "Sensing",
+    "Operators",
+    "Variables",
+    "Lists",
+    "Nuclear"
+];
+
+const blocks = [
+    // Motion
+    "move 10 steps",
+    "move -10 steps",
+    "turn ↻ 15 degrees",
+    "turn ↺ 15 degrees",
+    "point in direction 90",
+    "point towards mouse-pointer",
+    "go to random position",
+    "go to x: 0 y: 0",
+    "glide 1 seconds to random position",
+    "change x by 10",
+    "set x to 0",
+    "change y by 10",
+    "set y to 0",
+    "if on edge, bounce",
+    "set rotation style left-right",
+    "set rotation style all around",
+    "set rotation style don't rotate",
+    "x position",
+    "y position",
+    "direction",
+
+    // Looks
+    "say Hello! for 2 seconds",
+    "say Hello!",
+    "think Hmm... for 2 seconds",
+    "think Hmm...",
+    "switch costume to costume1",
+    "next costume",
+    "switch backdrop to backdrop1",
+    "next backdrop",
+    "change size by 10",
+    "set size to 100%",
+    "change color effect by 25",
+    "set color effect to 0",
+    "change fisheye effect by 25",
+    "clear graphic effects",
+    "show",
+    "hide",
+    "go to front layer",
+    "go back 1 layers",
+    "costume number",
+    "backdrop name",
+
+    // Sound
+    "play sound Meow until done",
+    "start sound Meow",
+    "stop all sounds",
+    "change volume by -10",
+    "set volume to 100%",
+    "volume",
+    "play drum 1 for 0.25 beats",
+    "rest for 0.25 beats",
+    "play note 60 for 0.5 beats",
+    "set instrument to Piano",
+
+    // Events
+    "when 💣 clicked",
+    "when green flag clicked",
+    "when key space pressed",
+    "when this sprite clicked",
+    "when backdrop switches to backdrop1",
+    "when loudness > 10",
+    "when I receive message1",
+    "broadcast message1",
+    "broadcast message1 and wait",
+    "when I start as a clone",
+
+    // Control
+    "wait 1 seconds",
+    "repeat 10",
+    "forever",
+    "if <> then",
+    "if <> then else",
+    "wait until <>",
+    "repeat until <>",
+    "stop all",
+    "stop this script",
+    "create clone of myself",
+    "delete this clone",
+
+    // Sensing
+    "touching mouse-pointer?",
+    "touching color?",
+    "distance to mouse-pointer",
+    "ask What's your name? and wait",
+    "answer",
+    "key space pressed?",
+    "mouse down?",
+    "mouse x",
+    "mouse y",
+    "set drag mode draggable",
+    "current year",
+    "current month",
+    "current date",
+    "current day of week",
+    "days since 2000",
+    "timer",
+    "reset timer",
+
+    // Operators
+    "join apple banana",
+    "letter 1 of apple",
+    "length of apple",
+    "apple contains a?",
+    "pick random 1 to 10",
+    "1 + 1",
+    "1 - 1",
+    "1 * 1",
+    "1 / 1",
+    "1 > 1",
+    "1 < 1",
+    "1 = 1",
+    "not <true>",
+    "<true> and <true>",
+    "<true> or <false>",
+    "round 3.14",
+    "abs of -10",
+
+    // Variables
+    "set my variable to 0",
+    "change my variable by 1",
+    "show variable my variable",
+    "hide variable my variable",
+    "my variable",
+
+    // Lists
+    "add thing to my list",
+    "delete 1 of my list",
+    "delete all of my list",
+    "insert thing at 1 of my list",
+    "replace item 1 of my list with thing",
+    "item 1 of my list",
+    "length of my list",
+    "my list contains thing?",
+
+    // NuclearMod-specific
+    "set Nuclear Power to 100",
+    "change Nuclear Power by 10",
+    "Nuclear Power",
+    "activate Nuclear Mode",
+    "deactivate Nuclear Mode",
+    "set radiation level to 0",
+    "change radiation level by 5",
+    "radiation level",
+    "launch Nuclear Event",
+    "when Nuclear Event triggered",
+    "broadcast Nuclear Event",
+    "create Nuclear Clone",
+    "destroy Nuclear Clone",
+    "set explosion effect to 50",
+    "change explosion effect by 10",
+    "clear Nuclear effects",
+    "set project title to My Project",
+    "project title",
+    "NuclearMod version",
+    "save project as .nuke",
+    "load .nuke project",
+    "export .nuke project",
+    "import .nuke project",
+    "set editor theme to orange"
+];
+
+const blockColors = {
+    Motion: "#4C97FF",
+    Looks: "#9966FF",
+    Sound: "#CF63CF",
+    Events: "#FFBF00",
+    Control: "#FFAB19",
+    Sensing: "#5CB1D6",
+    Operators: "#59C059",
+    Variables: "#FF8C1A",
+    Lists: "#FF8C1A",
+    Nuclear: "#FF7A00"
+};
+
+export default function NuclearEditor() {
+    return (
+        <div className="nuclear-editor">
+
+            <nav className="nuclear-navbar">
+                <div className="nuclear-brand">
+                    <span className="nuclear-logo">💣</span>
+                    <strong>NuclearMod</strong>
+                </div>
+
+                <div className="nuclear-menu">
+                    <button>File</button>
+                    <button>Edit</button>
+                    <button>Tutorials</button>
+                </div>
+
+                <button className="run-button">
+                    ▶ Run
+                </button>
+            </nav>
+
+            <div className="editor-body">
+
+                <aside className="block-sidebar">
+                    <h2>🧱 Blocks</h2>
+
+                    {categories.map(category => (
+                        <button
+                            className="category-button"
+                            key={category}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </aside>
+
+                <section className="workspace">
+
+                    <div className="stage">
+                        <div className="stage-label">
+                            Stage
+                        </div>
+
+                        <div className="stage-content">
+                            💣
+                        </div>
+                    </div>
+
+                    <div className="block-workspace">
+                        <div className="workspace-title">
+                            Code
+                        </div>
+
+                        <div className="block-palette">
+                            {blocks.map((block, index) => {
+                                const category =
+                                    categories[index % categories.length];
+
+                                return (
+                                    <div
+                                        className="block"
+                                        key={`${block}-${index}`}
+                                        style={{
+                                            background:
+                                                blockColors[category]
+                                        }}
+                                    >
+                                        {block}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                </section>
+
+                <aside className="sprite-panel">
+                    <h2>Sprites</h2>
+
+                    <div className="sprite">
+                        💣
+                        <span>Nuclear Bomb</span>
+                    </div>
+
+                    <button className="add-sprite">
+                        + Add Sprite
+                    </button>
+                </aside>
+
+            </div>
+        </div>
+    );
+}
