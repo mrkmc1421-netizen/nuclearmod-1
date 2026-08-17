@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NuclearMod Advanced Settings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            color: #222;
+        }
+
+        .navbar {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+            background: #ff8c00;
+            color: white;
+        }
+
+        .logo {
+            font-size: 28px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .settings {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .12);
+        }
+
+        .settings h1 {
+            margin-top: 0;
+        }
+
+        .setting {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .setting:last-child {
+            border-bottom: 0;
+        }
+
+        .setting-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .setting-info span {
+            color: #777;
+            font-size: 14px;
+        }
+
+        select,
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 9px 14px;
+            border: 0;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .orange-button {
+            background: #ff8c00;
+            color: white;
+        }
+
+        .danger {
+            background: #d9534f;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <span class="logo">💣</span>
+        <span class="title">NuclearMod Advanced Settings</span>
+    </header>
+
+    <main class="settings">
+
+        <h1>⚙️ Advanced Settings</h1>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Editor Theme</strong>
+                <span>Choose the NuclearMod editor appearance.</span>
+            </div>
+
+            <select id="theme">
+                <option value="orange">Nuclear Orange</option>
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Project Format</strong>
+                <span>Native NuclearMod project format.</span>
+            </div>
+
+            <input
+                type="text"
+                value=".nuke"
+                readonly
+            >
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Renderer</strong>
+                <span>Select the graphics renderer.</span>
+            </div>
+
+            <select id="renderer">
+                <option value="webgl">WebGL</option>
+                <option value="auto">Automatic</option>
+            </select>
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Stage Width</strong>
+                <span>Logical Scratch stage width.</span>
+            </div>
+
+            <input
+                id="stageWidth"
+                type="number"
+                value="480"
+            >
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Stage Height</strong>
+                <span>Logical Scratch stage height.</span>
+            </div>
+
+            <input
+                id="stageHeight"
+                type="number"
+                value="360"
+            >
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Experimental Features</strong>
+                <span>Enable NuclearMod experimental features.</span>
+            </div>
+
+            <input
+                id="experimental"
+                type="checkbox"
+            >
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Debug Mode</strong>
+                <span>Show additional development information.</span>
+            </div>
+
+            <input
+                id="debug"
+                type="checkbox"
+            >
+        </div>
+
+        <div class="setting">
+            <div class="setting-info">
+                <strong>Reset Settings</strong>
+                <span>Restore NuclearMod settings to defaults.</span>
+            </div>
+
+            <button
+                class="danger"
+                onclick="resetSettings()"
+            >
+                Reset
+            </button>
+        </div>
+
+        <br>
+
+        <button
+            class="orange-button"
+            onclick="saveSettings()"
+        >
+            💾 Save Settings
+        </button>
+
+    </main>
+
+    <script>
+        function saveSettings() {
+            const settings = {
+                theme:
+                    document.getElementById("theme").value,
+
+                renderer:
+                    document.getElementById("renderer").value,
+
+                stageWidth:
+                    Number(
+                        document.getElementById("stageWidth").value
+                    ),
+
+                stageHeight:
+                    Number(
+                        document.getElementById("stageHeight").value
+                    ),
+
+                experimental:
+                    document.getElementById("experimental").checked,
+
+                debug:
+                    document.getElementById("debug").checked
+            };
+
+            localStorage.setItem(
+                "nuclearmod-settings",
+                JSON.stringify(settings)
+            );
+
+            alert("NuclearMod settings saved.");
+        }
+
+        function resetSettings() {
+            localStorage.removeItem(
+                "nuclearmod-settings"
+            );
+
+            location.reload();
+        }
+    </script>
+
+</body>
+</html>
