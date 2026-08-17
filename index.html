@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NuclearMod</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+        }
+
+        header {
+            padding: 24px;
+            background: #181818;
+            border-bottom: 1px solid #333;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 24px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #community-projects h2 {
+            margin-bottom: 6px;
+        }
+
+        #community-projects > p {
+            color: #aaa;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fill,
+                minmax(240px, 1fr)
+            );
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .project-card {
+            overflow: hidden;
+            border: 1px solid #333;
+            border-radius: 14px;
+            background: #1b1b1b;
+        }
+
+        .project-thumbnail {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            display: block;
+            background: #252525;
+        }
+
+        .project-info {
+            padding: 16px;
+        }
+
+        .project-info h3 {
+            margin: 0 0 8px;
+        }
+
+        .project-info p {
+            color: #aaa;
+            margin: 0 0 14px;
+        }
+
+        .open-project {
+            border: 0;
+            border-radius: 8px;
+            padding: 9px 14px;
+            background: #fff;
+            color: #111;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .open-project:hover {
+            opacity: 0.85;
+        }
+
+        #loading,
+        #error,
+        #empty {
+            padding: 20px;
+            color: #aaa;
+        }
+
+        #error {
+            color: #ff7777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>💣 NuclearMod</h1>
+</header>
+
+<main>
+
+    <section id="community-projects">
+        <h2>Community Projects</h2>
+        <p>Explore projects created by the NuclearMod community.</p>
+
+        <div id="loading">
+            Loading projects...
+        </div>
+
+        <div
+            id="error"
+            hidden
+        ></div>
+
+        <div
+            id="empty"
+            hidden
+        >
+            No community projects found.
+        </div>
+
+        <div
+            id="projects"
+            class="projects-grid"
+        ></div>
+    </section>
+
+</main>
+
+<script>
+    /*
+     * NuclearMod Community Projects API
+     *
+     * Expected response:
+     *
+     * {
+     *   "projects": [
+     *     {
+     *       "id": "123",
+     *       "title": "My Project",
+     *       "description": "A NuclearMod project.",
+     *       "thumbnail": "https://example.com/thumbnail.png"
+     *     }
+     *   ]
+     * }
+     */
+
+    const API_URL = "/api/projects";
+
+    const projectsContainer =
+        document.getElementById("projects");
+
+    const loading =
+        document.getElementById("loading");
+
+    const error =
+        document.getElementById("error");
+
+    const empty =
+        document.getElementById("empty");
+
+    async function loadCommunityProjects() {
+        try {
+            const response = await fetch(API_URL);
+
+            if (!response.ok) {
+                throw new Error(
+                    `API returned ${response.status}`
+                );
+            }
+
+            const data = await response.json();
+
+            const projects = Array.isArray(data)
+                ? data
+                : data.projects;
+
+            loading.hidden = true;
+
+            if (!Array.isArray(projects) || projects.length === 0) {
+                empty.hidden = false;
+                return;
+            }
+
+            projectsContainer.innerHTML = "";
+
+            projects.forEach(project => {
+                const card = document.createElement("article");
+                card.className = "project-card";
+
+                const thumbnail =
+                    document.createElement("img");
+
+                thumbnail.className = "project-thumbnail";
+                thumbnail.src =
+                    project.thumbnail ||
+                    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='480'%3E%3Crect width='100%25' height='100%25' fill='%23252525'/%3E%3Ctext x='50%25' y='50%25' fill='white' text-anchor='middle' dominant-baseline='middle' font-size='32'%3ENuclearMod%3C/text%3E%3C/svg%3E";
+
+                thumbnail.alt =
+                    `${project.title || "Project"} thumbnail`;
+
+                thumbnail.loading = "lazy";
+
+                const info =
+                    document.createElement("div");
+
+                info.className = "project-info";
+
+                const title =
+                    document.createElement("h3");
+
+                title.textContent =
+                    project.title || "Untitled Project";
+
+                const description =
+                    document.createElement("p");
+
+                description.textContent =
+                    project.description ||
+                    "A NuclearMod community project.";
+
+                const button =
+                    document.createElement("button");
+
+                button.className = "open-project";
+                button.textContent = "Open Project";
+
+                button.addEventListener("click", () => {
+                    openProject(project.id);
+                });
+
+                info.appendChild(title);
+                info.appendChild(description);
+                info.appendChild(button);
+
+                card.appendChild(thumbnail);
+                card.appendChild(info);
+
+                projectsContainer.appendChild(card);
+            });
+
+        } catch (err) {
+            loading.hidden = true;
+            error.hidden = false;
+
+            error.textContent =
+                "Failed to load community projects: " +
+                err.message;
+        }
+    }
+
+    function openProject(projectId) {
+        if (!projectId) {
+            return;
+        }
+
+        window.location.href =
+            `/project/${encodeURIComponent(projectId)}`;
+    }
+
+    loadCommunityProjects();
+</script>
+
+</body>
+</html>
