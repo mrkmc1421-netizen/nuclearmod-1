@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NuclearMod Addons</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            color: #222;
+        }
+
+        .navbar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+            background: #ff8c00;
+            color: white;
+        }
+
+        .logo {
+            font-size: 30px;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+        }
+
+        .license-rules {
+            background: #fff3df;
+            border-left: 5px solid #ff8c00;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .license-rules ul {
+            margin-bottom: 0;
+        }
+
+        .section {
+            margin-top: 28px;
+        }
+
+        .section h2 {
+            margin-bottom: 12px;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .addon {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .addon h3 {
+            margin-top: 0;
+        }
+
+        .addon p {
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .addon label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .license {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 8px;
+            background: #eee;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .excluded {
+            opacity: 0.65;
+            border: 2px solid #d9534f;
+        }
+
+        .excluded strong {
+            color: #d9534f;
+        }
+
+        .save {
+            margin-top: 30px;
+            padding: 12px 20px;
+            border: 0;
+            border-radius: 8px;
+            background: #ff8c00;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save:hover {
+            background: #e67a00;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <span class="logo">💣</span>
+    <span class="brand">NuclearMod Addons</span>
+</header>
+
+<main class="container">
+
+    <section class="header">
+        <h1>🧩 Addons</h1>
+        <p>
+            Customize NuclearMod with editor addons and
+            compatible extensions.
+        </p>
+
+        <div class="license-rules">
+            <strong>📜 Extension licensing rules</strong>
+
+            <ul>
+                <li>
+                    ✅ Include extensions whose licenses permit
+                    redistribution and modification.
+                </li>
+
+                <li>
+                    📝 Preserve copyright and license notices.
+                </li>
+
+                <li>
+                    🚫 Exclude extensions whose licenses don't
+                    permit redistribution or modification.
+                </li>
+
+                <li>
+                    🚫 Never remove or rewrite another author's
+                    copyright or license information.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+    <!-- NuclearMod -->
+
+    <section class="section">
+        <h2>☢️ NuclearMod Addons</h2>
+
+        <div class="addon-grid">
+
+            <article class="addon">
+                <h3>☢️ Nuclear Blocks</h3>
+                <p>
+                    Adds NuclearMod-specific blocks to the
+                    Scratch block palette.
+                </p>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="nuclear-blocks"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>📦 .nuke Project Tools</h3>
+                <p>
+                    Adds import, export, and project handling
+                    for NuclearMod .nuke projects.
+                </p>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="nuke-tools"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>🌐 Community Projects</h3>
+                <p>
+                    Adds the NuclearMod community-project browser.
+                </p>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="community-projects"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>🛠️ Advanced Editor</h3>
+                <p>
+                    Adds advanced editor and development controls.
+                </p>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="advanced-editor"
+                    >
+                    Enable
+                </label>
+            </article>
+
+        </div>
+    </section>
+
+
+    <!-- Other Mods -->
+
+    <section class="section">
+        <h2>🛠️ Other Mods</h2>
+
+        <div class="addon-grid">
+
+            <article class="addon">
+                <h3>🎮 Gamepad</h3>
+                <p>
+                    Adds gamepad/controller support.
+                </p>
+
+                <span class="license">
+                    License: verified before inclusion
+                </span>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="gamepad"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>⚙️ Box2D Physics</h3>
+                <p>
+                    Adds physics functionality for compatible
+                    projects.
+                </p>
+
+                <span class="license">
+                    License: verified before inclusion
+                </span>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="box2d"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>💾 Local Storage</h3>
+                <p>
+                    Provides local browser storage functionality.
+                </p>
+
+                <span class="license">
+                    License: verified before inclusion
+                </span>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="local-storage"
+                    >
+                    Enable
+                </label>
+            </article>
+
+
+            <article class="addon">
+                <h3>📝 Text</h3>
+                <p>
+                    Adds additional text-processing capabilities.
+                </p>
+
+                <span class="license">
+                    License: verified before inclusion
+                </span>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-addon="text"
+                    >
+                    Enable
+                </label>
+            </article>
+
+        </div>
+    </section>
+
+
+    <button
+        class="save"
+        onclick="saveAddons()"
+    >
+        💾 Save Addon Settings
+    </button>
+
+</main>
+
+
+<script>
+    const STORAGE_KEY = "nuclearmod-addons";
+
+    function loadAddons() {
+        const saved =
+            JSON.parse(
+                localStorage.getItem(STORAGE_KEY) || "{}"
+            );
+
+        document
+            .querySelectorAll("[data-addon]")
+            .forEach(input => {
+                input.checked =
+                    saved[input.dataset.addon] === true;
+            });
+    }
+
+    function saveAddons() {
+        const addons = {};
+
+        document
+            .querySelectorAll("[data-addon]")
+            .forEach(input => {
+                addons[input.dataset.addon] =
+                    input.checked;
+            });
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(addons)
+        );
+
+        alert("☢️ NuclearMod addon settings saved.");
+    }
+
+    loadAddons();
+</script>
+
+</body>
+</html>
